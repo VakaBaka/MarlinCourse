@@ -3,21 +3,20 @@ include("function.php");
 session_start();
 
 $email = $_POST['email'];
-$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-$user = get_user_email($email);
+$user = get_user_by_email($email);
 
 
 if ($user) {
-	set_flash_message('exist', 'Данный емейл уже существует!');
+	set_flash_message('danger', '<strong>Уведомление!</strong> Этот эл. адрес уже занят другим пользователем.');
 	redirect('page_register.php');
 	exit;
 }
 
 add_user($email, $hash);
-var_dump(add_user($email, $hash));
 
-set_flash_message('succes', 'Пользователь успешно зарегистрирован!');
+set_flash_message('succes', 'Регистрация успешна!');
 redirect('page_login.php');
 
 ?>

@@ -1,3 +1,8 @@
+<?php 
+session_start();
+require('function.php'); 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,11 +39,15 @@
         </div>
         <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
             <?php if (isset($_SESSION['succes'])): ?>
-            <div class="alert alert-succes">
-                Регистрация успешна
+            <div class="alert alert-succes" role="alert">
                 <?php display_flash_message('succes');?>
             </div>
-        <?php endif; ?>
+            <?php endif; ?>
+            <?php if(isset($_SESSION['danger'])): ?>
+             <div class="alert alert-danger text-dark" role="alert">
+                 <?php display_flash_message('danger');?>
+            </div>
+            <?php endif; ?>
             <form action="login.php" method="POST">
                 <div class="form-group">
                     <label class="form-label" for="username">Email</label>
