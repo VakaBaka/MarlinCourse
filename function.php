@@ -95,16 +95,18 @@ function edit_information($id, $username, $job_title, $phone, $adress){
 
 // загружаем аватар
 // return null | string path
-function upload_avatar($image){
+function upload_avatar($id, $image__name){
 
+	$image_name = addslashes($image__name);
+	$insert_image = "UPDATE registration SET image_name='$image_name' WHERE id=$id";
+	mysqli_query(connect_bd(), $insert_image) or die(mysqli_error(connect_bd()));
 }
 
 // Добавляем ссылки на соц сети
 // return null
 function add_social_links($id, $vk, $telegram, $instagram){
 	$query = "UPDATE registration SET vk='$vk', telegram='$telegram', instagram='$instagram' WHERE id='$id'";
-	$update_info = mysqli_query(connect_bd(), $query) ?? die(mysqli_error(connect_bd()));
-	return true;
+	mysqli_query(connect_bd(), $query) ?? die(mysqli_error(connect_bd()));
 }
 
 // Вывод всех пользователей из БД
@@ -115,7 +117,13 @@ function get_all_users($id) {
 	return $users;
 }
 
+// Получаем id пользователя
+function get_user_by_id($id) {
+	$query = "SELECT * FROM registration WHERE id='$id'";
+	$user = mysqli_fetch_assoc(mysqli_query(connect_bd(), $query)) ?? mysqli_error(connect_bd());
 
+	return $user;
+}
 
 
 

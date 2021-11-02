@@ -1,6 +1,6 @@
 <?php 
-include('function.php');
 session_start();
+include('function.php');
 
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -15,8 +15,10 @@ if (!isset($user)) {
 }
 
 if ($user['status'] != 'admin') {
-    redirect('users.php');
+    redirect("users.php?id={$_SESSION['user']['id']}");
 }
+
+$users = get_all_users('*');
 
 redirect('create_user.php');
 

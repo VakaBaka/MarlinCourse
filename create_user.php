@@ -47,7 +47,7 @@ require('function.php');
                 <i class='subheader-icon fal fa-plus-circle'></i> Добавить пользователя
             </h1>
         </div>
-        <form action="add_user.php" method="POST">
+        <form action="add_user.php" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -90,9 +90,9 @@ require('function.php');
                             <div class="panel-hdr">
                                 <h2>Безопасность и Медиа</h2>
                                 <?php if(isset($_SESSION['email_exist'])):?>
-                <div class="alert alert-success">
-            <?php display_flash_message('email_exist');?>
-        <?php endif; ?>
+                            <div class="alert alert-success">
+                                <?php display_flash_message('email_exist');?>
+                                 <?php endif; ?>
                             </div>
                             <div class="panel-content">
                                 <!-- email -->
@@ -120,7 +120,7 @@ require('function.php');
 
                                 <div class="form-group">
                                     <label class="form-label" for="example-fileinput">Загрузить аватар</label>
-                                    <input type="file" id="example-fileinput" class="form-control-file">
+                                    <input type="file" name="image" id="example-fileinput" class="form-control-file">
                                 </div>
                             </div>
                         </div>

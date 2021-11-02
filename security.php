@@ -1,3 +1,9 @@
+<?php 
+session_start();
+require('function.php'); 
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +44,7 @@
             </h1>
 
         </div>
-        <form action="">
+        <form action="edit_security" method="POST">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -50,13 +56,14 @@
                                 <!-- email -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Email</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="john@example.com">
+                                    <input type="text" name="email" id="simpleinput" class="form-control" 
+                                        value="<?= isset($_SESSION['user']['email']) ?? '';?>">
                                 </div>
 
                                 <!-- password -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Пароль</label>
-                                    <input type="password" id="simpleinput" class="form-control">
+                                    <input type="password" name="password" id="simpleinput" class="form-control">
                                 </div>
 
                                 <!-- password confirmation-->

@@ -1,8 +1,8 @@
 <?php 
 session_start();
-require('function.php');
-
+require('function.php'); 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +28,7 @@ require('function.php');
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="page_login.php">Войти</a>
+                    <a class="nav-link" href="page_login.html">Войти</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Выйти</a>
@@ -39,45 +39,32 @@ require('function.php');
     <main id="js-page-content" role="main" class="page-content mt-3">
         <div class="subheader">
             <h1 class="subheader-title">
-                <i class='subheader-icon fal fa-plus-circle'></i> Редактировать
+                <i class='subheader-icon fal fa-image'></i> Загрузить аватар
             </h1>
 
         </div>
         <?php $user = get_user_by_id($_GET['id']) ?? $_SESSION['user']; ?>
-        <form action="edit_user.php?id=<?= $user['id'];?>" method="POST">
+        <form action="upload_avatar.php?id=<?= $user['id']?>" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
                         <div class="panel-container">
                             <div class="panel-hdr">
-                                <h2>Общая информация</h2>
+                                <h2>Текущий аватар</h2>
                             </div>
                             <div class="panel-content">
-                                <!-- username -->
                                 <div class="form-group">
-                                    <label class="form-label" for="simpleinput">Имя</label>
-                                    <input type="text" name="username" id="simpleinput" class="form-control" value="Иван иванов">
+                                    <img src="img/demo/authors/josh.png" alt="" class="img-responsive" width="200">
                                 </div>
 
-                                <!-- title -->
                                 <div class="form-group">
-                                    <label class="form-label" for="simpleinput">Место работы</label>
-                                    <input type="text" name="job_title" id="simpleinput" class="form-control" value="Marlin Веб-разработчик">
+                                    <label class="form-label" for="example-fileinput">Выберите аватар</label>
+                                    <input type="file" name="image" id="example-fileinput" class="form-control-file">
                                 </div>
 
-                                <!-- tel -->
-                                <div class="form-group">
-                                    <label class="form-label" for="simpleinput">Номер телефона</label>
-                                    <input type="text" name="phone" id="simpleinput" class="form-control" value="8 888 8888 88">
-                                </div>
 
-                                <!-- address -->
-                                <div class="form-group">
-                                    <label class="form-label" for="simpleinput">Адрес</label>
-                                    <input type="text" name="adress" id="simpleinput" class="form-control" value="Восточные Королевства, Штормград">
-                                </div>
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
-                                    <button class="btn btn-warning">Редактировать</button>
+                                    <button class="btn btn-warning">Загрузить</button>
                                 </div>
                             </div>
                         </div>
