@@ -74,7 +74,7 @@ require('function.php');
             </div>
             <div class="row" id="js-contacts">
             <?php if($_SESSION['user']['status'] == 'admin'): ?>
-                <?php foreach (get_all_users() as $user): ?>
+                <?php foreach (get_all_users('*') as $user): ?>
                 <div class="col-xl-4">
                     <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="oliver kopyov">
                         <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
@@ -84,21 +84,21 @@ require('function.php');
                                 </span>
                                 <div class="info-card-text flex-1">
                                     <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
-                                        <?php echo $user['name'];?>
+                                        <?php echo $user['username'];?>
                                         <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                         <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="edit.html">
+                                        <a class="dropdown-item" href="edit.php">
                                             <i class="fa fa-edit"></i>
                                         Редактировать</a>
-                                        <a class="dropdown-item" href="security.html">
+                                        <a class="dropdown-item" href="security.php">
                                             <i class="fa fa-lock"></i>
                                         Безопасность</a>
-                                        <a class="dropdown-item" href="status.html">
+                                        <a class="dropdown-item" href="status.php">
                                             <i class="fa fa-sun"></i>
                                         Установить статус</a>
-                                        <a class="dropdown-item" href="media.html">
+                                        <a class="dropdown-item" href="media.php">
                                             <i class="fa fa-camera"></i>
                                             Загрузить аватар
                                         </a>
@@ -107,7 +107,7 @@ require('function.php');
                                             Удалить
                                         </a>
                                     </div>
-                                    <span class="text-truncate text-truncate-xl"><?php echo $user['job']; ?></span>
+                                    <span class="text-truncate text-truncate-xl"><?php echo $user['job_title']; ?></span>
                                 </div>
                                 <button class="js-expand-btn btn btn-sm btn-default d-none" data-toggle="collapse" data-target="#c_1 > .card-body + .card-body" aria-expanded="false">
                                     <span class="collapsed-hidden">+</span>
@@ -149,21 +149,21 @@ require('function.php');
                                 </span>
                                 <div class="info-card-text flex-1">
                                     <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
-                                        <?php echo $_SESSION['user']['name'];?>
+                                        <?php echo $_SESSION['user']['username'];?>
                                         <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                         <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="edit.html">
+                                        <a class="dropdown-item" href="edit.php">
                                             <i class="fa fa-edit"></i>
                                         Редактировать</a>
-                                        <a class="dropdown-item" href="security.html">
+                                        <a class="dropdown-item" href="security.php">
                                             <i class="fa fa-lock"></i>
                                         Безопасность</a>
-                                        <a class="dropdown-item" href="status.html">
+                                        <a class="dropdown-item" href="status.php">
                                             <i class="fa fa-sun"></i>
                                         Установить статус</a>
-                                        <a class="dropdown-item" href="media.html">
+                                        <a class="dropdown-item" href="media.php">
                                             <i class="fa fa-camera"></i>
                                             Загрузить аватар
                                         </a>
@@ -172,7 +172,7 @@ require('function.php');
                                             Удалить
                                         </a>
                                     </div>
-                                    <span class="text-truncate text-truncate-xl"><?php echo $_SESSION['user']['job']; ?></span>
+                                    <span class="text-truncate text-truncate-xl"><?php echo $_SESSION['user']['job_title']; ?></span>
                                 </div>
                                 <button class="js-expand-btn btn btn-sm btn-default d-none" data-toggle="collapse" data-target="#c_1 > .card-body + .card-body" aria-expanded="false">
                                     <span class="collapsed-hidden">+</span>
@@ -218,7 +218,8 @@ require('function.php');
                                         <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                         <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                                     </a>
-                                    <div class="dropdown-menu">
+                                    <?php if($_SESSION['user']['status'] == 'admin'):?>
+                                        <div class="dropdown-menu">
                                         <a class="dropdown-item" href="edit.html">
                                             <i class="fa fa-edit"></i>
                                         Редактировать</a>
@@ -237,6 +238,7 @@ require('function.php');
                                             Удалить
                                         </a>
                                     </div>
+                                <?php endif; ?>
                                     <span class="text-truncate text-truncate-xl">IT Director, Gotbootstrap Inc.</span>
                                 </div>
                                 <button class="js-expand-btn btn btn-sm btn-default d-none" data-toggle="collapse" data-target="#c_1 > .card-body + .card-body" aria-expanded="false">

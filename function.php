@@ -87,9 +87,9 @@ function login($email, $password){
 
 // Редактируем общую информацию
 // return value - boolean
-function edit_information($email, $username, $job_title, $phone, $adress){
-	$query = "UPDATE registration SET name='$username', job='$job_title', phone='$phone', adress='$adress' WHERE email='$email'";
-	$update_info = mysqli_query(connect_bd(), $query);
+function edit_information($id, $username, $job_title, $phone, $adress){
+	$query = "UPDATE registration SET username='$username', job_title='$job_title', phone='$phone', adress='$adress' WHERE id='$id'";
+	mysqli_query(connect_bd(), $query) ?? die(mysqli_error(connect_bd()));
 	return true;
 }
 
@@ -101,15 +101,16 @@ function upload_avatar($image){
 
 // Добавляем ссылки на соц сети
 // return null
-function add_social_links($email, $vk, $telegram, $instagram){
-	$query = "UPDATE registration SET vk='$vk', telegram='$telegram', instagram='$instagram' WHERE email='$email'";
-	$update_info = mysqli_query(connect_bd(), $query);
+function add_social_links($id, $vk, $telegram, $instagram){
+	$query = "UPDATE registration SET vk='$vk', telegram='$telegram', instagram='$instagram' WHERE id='$id'";
+	$update_info = mysqli_query(connect_bd(), $query) ?? die(mysqli_error(connect_bd()));
 	return true;
 }
 
-function get_all_users() {
-	$query = "SELECT * FROM registration";
-	$result = mysqli_query(connect_bd(), $query) or die(mysqli_error(connect_bd()));
+// Вывод всех пользователей из БД
+function get_all_users($id) {
+	$query = "SELECT $id FROM registration";
+	$result = mysqli_query(connect_bd(), $query) ?? die(mysqli_error(connect_bd()));
 	for ($users = []; $row = mysqli_fetch_assoc($result); $users[] = $row);
 	return $users;
 }

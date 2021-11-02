@@ -39,12 +39,13 @@ require('function.php');
     </nav>
     <main id="js-page-content" role="main" class="page-content mt-3">
         <div class="subheader">
+            <?php if(isset($_SESSION['email_exist'])):?>
+                <div class="alert alert-success">
+            <?php display_flash_message('email_exist');?>
+        <?php endif; ?>
             <h1 class="subheader-title">
                 <i class='subheader-icon fal fa-plus-circle'></i> Добавить пользователя
             </h1>
-
-
-
         </div>
         <form action="add_user.php" method="POST">
             <div class="row">
@@ -88,6 +89,10 @@ require('function.php');
                         <div class="panel-container">
                             <div class="panel-hdr">
                                 <h2>Безопасность и Медиа</h2>
+                                <?php if(isset($_SESSION['email_exist'])):?>
+                <div class="alert alert-success">
+            <?php display_flash_message('email_exist');?>
+        <?php endif; ?>
                             </div>
                             <div class="panel-content">
                                 <!-- email -->

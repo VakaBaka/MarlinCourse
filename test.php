@@ -1,19 +1,29 @@
 <?php 
 session_start();
 require('function.php');
-// var_dump($_SESSION['user']);
 
-// $query = "SELECT * FROM registration";
-// $user = mysqli_fetch_assoc(mysqli_query(connect_bd(), $query)) ?? mysqli_error(connect_bd());
+var_dump($_SESSION['user']);
+var_dump($_POST);
 
-$query = "SELECT * FROM registration";
-$result = mysqli_query(connect_bd(), $query) or die(mysqli_error(connect_bd()));
-for ($users = []; $row = mysqli_fetch_assoc($result); $users[] = $row);
-var_dump($users);
+$id = $_SESSION['user']['id'];
+$username = $_POST['username'];
+$job_title = $_POST['job_title'];
+$phone = $_POST['phone'];
+$adress = $_POST['adress'];
 
-// foreach(get_all_users() as $user){
-//     echo $user['id'] . '<br>';
-// }
+$query = "UPDATE registration SET username='$username', job_title='$job_title', phone='$phone', adress='$adress' WHERE id='$id'";
+mysqli_query(connect_bd(), $query);
+
+
+
+// edit_information($_SESSION['user']['id'], $_POST['username'], $_POST['job_title'], $_POST['phone'], $_POST['adress']);
+
+
+
+// var_dump(get_all_users('*'));
+
+// var_dump($_SESSION);
+// $_SESSION = [];
 
 ?>
 

@@ -14,7 +14,7 @@ if ($user) {
 	exit;
 }
 
-add_user($email, $hash);
+add_user($email, $password);
 
 set_flash_message('succes', 'Регистрация успешна!');
 redirect('page_login.php');
