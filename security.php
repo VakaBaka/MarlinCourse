@@ -44,7 +44,12 @@ require('function.php');
             </h1>
 
         </div>
-        <form action="edit_security" method="POST">
+        <?php  
+         if($_SESSION['user']['status'] == 'admin'):
+             $user = get_user_by_id($_GET['id']);
+         endif; 
+        ?>
+        <form action="edit_security.php?id=<?= $user['id'] ?? $_SESSION['user']['id'];?>" method="POST">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -57,7 +62,7 @@ require('function.php');
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Email</label>
                                     <input type="text" name="email" id="simpleinput" class="form-control" 
-                                        value="<?= isset($_SESSION['user']['email']) ?? '';?>">
+                                        value="<?php echo ($user['email']) ?? ($_SESSION['user']['email']);?>">
                                 </div>
 
                                 <!-- password -->

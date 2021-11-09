@@ -7,10 +7,10 @@ if (!isset($_SESSION['user'])) {
 }
 
 if ($_SESSION['user']['status'] != 'admin') {
-	edit_credentials($_SESSION['user']['id'], $_POST['email'], $_POST['password']);
-	redirect("page_login.php");
+	delete_user($_SESSION['user']['id']);
+	redirect("login.php");
 }
 
-edit_credentials($_GET['id'], $_POST['email'], $_POST['password']);
+delete_user($_GET['id']);
 
 redirect('users.php');

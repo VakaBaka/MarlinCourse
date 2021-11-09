@@ -15,7 +15,7 @@ if (!isset($user)) {
 }
 
 if ($user['status'] != 'admin') {
-    redirect("users.php?id={$_SESSION['user']['id']}");
+    redirect("users.php?id={$user['id']}");
 }
 
 $users = get_all_users('*');

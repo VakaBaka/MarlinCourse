@@ -7,10 +7,10 @@ if (!isset($_SESSION['user'])) {
 }
 
 if ($_SESSION['user']['status'] != 'admin') {
-	edit_credentials($_SESSION['user']['id'], $_POST['email'], $_POST['password']);
-	redirect("page_login.php");
+	set_online_status($_SESSION['user']['id'], $_POST['online_status']);
+	redirect("users.php?id={$_SESSION['user']['id']}");
 }
 
-edit_credentials($_GET['id'], $_POST['email'], $_POST['password']);
+set_online_status($_GET['id'], $_POST['online_status']);
 
 redirect('users.php');

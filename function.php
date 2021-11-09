@@ -79,9 +79,16 @@ function login($email, $password){
 // Устанавливаем статус
 // Принимает пользовательское id
 //return value null
-// function set_status($status){
-	
-// }
+function set_online_status($id, $status){
+	$query = "UPDATE registration SET online_status='$status' WHERE id=$id";
+	mysqli_query(connect_bd(), $query);
+	get_user_by_id($id);
+	$arr = [
+			'online' => 'Онлайн',
+			'walked_away' => 'Отошел',
+			'do_not_disturb' => 'Не беспокоить',
+		];
+}
 
 
 
@@ -90,7 +97,7 @@ function login($email, $password){
 function edit_information($id, $username, $job_title, $phone, $adress){
 	$query = "UPDATE registration SET username='$username', job_title='$job_title', phone='$phone', adress='$adress' WHERE id='$id'";
 	mysqli_query(connect_bd(), $query) ?? die(mysqli_error(connect_bd()));
-	return true;
+	get_user_by_id($id);
 }
 
 // загружаем аватар
@@ -100,13 +107,15 @@ function upload_avatar($id, $image__name){
 	$image_name = addslashes($image__name);
 	$insert_image = "UPDATE registration SET image_name='$image_name' WHERE id=$id";
 	mysqli_query(connect_bd(), $insert_image) or die(mysqli_error(connect_bd()));
+	get_user_by_id($id);
 }
 
 // Добавляем ссылки на соц сети
 // return null
 function add_social_links($id, $vk, $telegram, $instagram){
 	$query = "UPDATE registration SET vk='$vk', telegram='$telegram', instagram='$instagram' WHERE id='$id'";
-	mysqli_query(connect_bd(), $query) ?? die(mysqli_error(connect_bd()));
+	mysqli_query(connect_bd(), $query);
+	get_user_by_id($id);
 }
 
 // Вывод всех пользователей из БД
@@ -123,6 +132,20 @@ function get_user_by_id($id) {
 	$user = mysqli_fetch_assoc(mysqli_query(connect_bd(), $query)) ?? mysqli_error(connect_bd());
 
 	return $user;
+}
+
+// Удалить пользователя
+function delete_user($id){
+	$query = "DELETE FROM registration WHERE id=$id";
+	mysqli_query(connect_bd(), $query);
+}
+
+// Редактирование авторизационных данных
+function edit_credentials($id, $email, $password){
+	$hash = password_hash($password, PASSWORD_DEFAULT);
+	$query = "UPDATE registration SET email='$email', password='$hash' WHERE id=$id";
+	mysqli_query(connect_bd(), $query);
+	get_user_by_id($id);
 }
 
 

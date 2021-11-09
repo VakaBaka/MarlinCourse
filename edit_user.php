@@ -8,7 +8,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 if ($_SESSION['user']['status'] != 'admin') {
-	edit_information($_SESSION['user']['id'], $_POST['username'], $_POST['job_title'], $_POST['phone'], $_POST['adress']);
+	$_SESSION['user'] = edit_information($_SESSION['user']['id'], $_POST['username'], $_POST['job_title'], $_POST['phone'], $_POST['adress']);
 	redirect("users.php?id={$_SESSION['user']['id']}");
 }
 

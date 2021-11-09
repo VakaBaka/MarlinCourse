@@ -19,9 +19,11 @@ $id = add_user($email, $password);
 
 edit_information($id, $_POST['username'], $_POST['job_title'], $_POST['phone'], $_POST['adress']);
 
-upload_avatar($id, $_FILES['image']['tmp_name'], $_FILES['image']['name']);
+upload_avatar($id, $_FILES['image']['name']);
 
 add_social_links($id, $_POST['vk'], $_POST['telegram'], $_POST['instagram']);
+
+set_online_status($id, $_POST['online_status']);
 
 set_flash_message('succes_add_user', 'Пользователь добавлен!');
 

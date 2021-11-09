@@ -111,10 +111,10 @@ require('function.php');
                                 <!-- status -->
                                 <div class="form-group">
                                     <label class="form-label" for="example-select">Выберите статус</label>
-                                    <select class="form-control" id="example-select">
-                                        <option>Онлайн</option>
-                                        <option>Отошел</option>
-                                        <option>Не беспокоить</option>
+                                    <select name="online_status" class="form-control" id="example-select">
+                                        <option value="online">Онлайн</option>
+                                        <option value="walked_away">Отошел</option>
+                                        <option value="do_not_disturb">Не беспокоить</option>
                                     </select>
                                 </div>
 
