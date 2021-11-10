@@ -7,7 +7,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 if ($_SESSION['user']['status'] != 'admin') {
-	$_SESSION['user']['image_name'] = implode('', upload_avatar($_SESSION['user']['id'], $_FILES['image']['name']));
+	upload_avatar($_SESSION['user']['id'], $_FILES['image']['name']);
 	redirect("users.php?id={$_SESSION['user']['id']}");
 }
 

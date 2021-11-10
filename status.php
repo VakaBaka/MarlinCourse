@@ -45,10 +45,12 @@ require('function.php');
         </div>
         <?php  
          if($_SESSION['user']['status'] == 'admin'):
-             $user = get_user_by_id($_GET['id']);
+            $user = get_user_by_id($_GET['id']);
+         elseif($_SESSION['user']['status'] != 'admin'):
+            $user = get_user_by_id($_SESSION['user']['id']);
          endif; 
         ?>
-        <form action="set_online_status.php?id=<?= $user['id'] ?? $_SESSION['user']['id'];?>" method="POST">
+        <form action="set_online_status.php?id=<?= $user['id'];?>" method="POST">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -63,9 +65,23 @@ require('function.php');
                                         <div class="form-group">
                                             <label class="form-label" for="example-select">Выберите статус</label>
                                             <select name="online_status" class="form-control" id="example-select">
+                                            <?php if($user['online_status'] == ''):?>
                                                 <option value="online">Онлайн</option>
                                                 <option value="walked_away">Отошел</option>
                                                 <option value="do_not_disturb">Не беспокоить</option>
+                                            <?php elseif($user['online_status'] == 'online'):?>
+                                                <option value="online">Онлайн</option>
+                                                <option value="walked_away">Отошел</option>
+                                                <option value="do_not_disturb">Не беспокоить</option>
+                                            <?php elseif($user['online_status'] == 'walked_away'):?>
+                                                <option value="walked_away">Отошел</option>
+                                                <option value="online">Онлайн</option>
+                                                <option value="do_not_disturb">Не беспокоить</option>
+                                            <?php elseif($user['online_status'] == 'do_not_disturb'):?>
+                                                <option value="do_not_disturb">Не беспокоить</option>
+                                                <option value="online">Онлайн</option>
+                                                <option value="walked_away">Отошел</option>
+                                            <?php endif; ?>
                                             </select>
                                         </div>
                                     </div>

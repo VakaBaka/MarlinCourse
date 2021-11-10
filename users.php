@@ -74,15 +74,20 @@ require('function.php');
             </div>
             <div class="row" id="js-contacts">
             <?php if($_SESSION['user']['status'] == 'admin'): ?>
-                <?php $users = get_all_users('*');?>
+                <?php $users = get_all_users();?>
                 <?php foreach ($users as $user): ?>
                 <div class="col-xl-4">
                     <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="oliver kopyov">
                         <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
                             <div class="d-flex flex-row align-items-center">
+                            <?php if($user['online_status'] == 'online'):?>
                                 <span class="status status-success mr-3">
-                                    <a href="profile.php?id=<?= $user['id']?>"><span class="rounded-circle profile-image d-block " style="background-image:url('img/demo/avatars/<?= $user['image_name'] ?? 'avatar-m.png'; ?>'); background-size: cover;"></span></a>
-                                    
+                            <?php elseif($user['online_status'] == 'walked_away'):?>
+                                <span class="status status-warning mr-3">
+                            <?php elseif($user['online_status'] == 'do_not_disturb'):?>
+                                <span class="status status-danger mr-3">
+                            <?php endif; ?>
+                                    <a href="profile.php?id=<?= $user['id']?>"><span class="rounded-circle profile-image d-block " style="background-image:url('img/demo/avatars/<?= $user['image_name'] ?? 'avatar-m.png'; ?>'); background-size: cover;"></span></a>  
                                 </span>
                                 <div class="info-card-text flex-1">
                                     <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
@@ -142,32 +147,40 @@ require('function.php');
                     </div>
                 </div>
             <?php endforeach; ?>
-            <?php elseif($_SESSION['user']['status'] != 'admin'): ?>
+            <?php elseif($_SESSION['user']['status'] != 'admin'): 
+                    $user = get_user_by_id($_SESSION['user']['id']);?>
                 <div class="col-xl-4">
                     <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="oliver kopyov">
                         <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
                             <div class="d-flex flex-row align-items-center">
+                            <?php if($user['online_status'] == 'online'):?>
                                 <span class="status status-success mr-3">
-                                    <a href="profile.php?id=<?= $_SESSION['user']['id']?>"><span class="rounded-circle profile-image d-block " style="background-image:url('img/demo/avatars/<?= $_SESSION['user']['image_name']; ?>'); background-size: cover;"></span></a>
+                            <?php elseif($user['online_status'] == 'walked_away'):?>
+                                <span class="status status-warning mr-3">
+                            <?php elseif($user['online_status'] == 'do_not_disturb'):?>
+                                <span class="status status-danger mr-3">
+                            <?php endif; ?>
+                                    <a href="profile.php?id=<?= $user['id']?>"><span class="rounded-circle profile-image d-block " style="background-image:url('img/demo/avatars/<?= $user['image_name']; ?>'); background-size: cover;"></span></a>
                                     
                                 </span>
+                            
                                 <div class="info-card-text flex-1">
                                     <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
-                                        <?= $_SESSION['user']['username'];?>
+                                        <?= $user['username'];?>
                                         <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                         <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="edit.php?id=<?= $_SESSION['user']['id']?>">
+                                        <a class="dropdown-item" href="edit.php?id=<?= $user['id']?>">
                                             <i class="fa fa-edit"></i>
                                         Редактировать</a>
-                                        <a class="dropdown-item" href="security.php?id=<?= $_SESSION['user']['id']?>">
+                                        <a class="dropdown-item" href="security.php?id=<?= $user['id']?>">
                                             <i class="fa fa-lock"></i>
                                         Безопасность</a>
-                                        <a class="dropdown-item" href="status.php?id=<?= $_SESSION['user']['id']?>">
+                                        <a class="dropdown-item" href="status.php?id=<?= $user['id']?>">
                                             <i class="fa fa-sun"></i>
                                         Установить статус</a>
-                                        <a class="dropdown-item" href="media.php?id=<?= $_SESSION['user']['id']?>">
+                                        <a class="dropdown-item" href="media.php?id=<?= $user['id']?>">
                                             <i class="fa fa-camera"></i>
                                             Загрузить аватар
                                         </a>
@@ -176,7 +189,7 @@ require('function.php');
                                             Удалить
                                         </a>
                                     </div>
-                                    <span class="text-truncate text-truncate-xl"><?= $_SESSION['user']['job_title']; ?></span>
+                                    <span class="text-truncate text-truncate-xl"><?= $user['job_title']; ?></span>
                                 </div>
                                 <button class="js-expand-btn btn btn-sm btn-default d-none" data-toggle="collapse" data-target="#c_1 > .card-body + .card-body" aria-expanded="false">
                                     <span class="collapsed-hidden">+</span>
@@ -187,19 +200,19 @@ require('function.php');
                         <div class="card-body p-0 collapse show">
                             <div class="p-3">
                                 <a href="tel:+13174562564" class="mt-1 d-block fs-sm fw-400 text-dark">
-                                    <i class="fas fa-mobile-alt text-muted mr-2"></i> <?= $_SESSION['user']['phone'];?></a>
+                                    <i class="fas fa-mobile-alt text-muted mr-2"></i> <?= $user['phone'];?></a>
                                 <a href="mailto:oliver.kopyov@smartadminwebapp.com" class="mt-1 d-block fs-sm fw-400 text-dark">
-                                    <i class="fas fa-mouse-pointer text-muted mr-2"></i> <?= $_SESSION['user']['email'];?></a>
+                                    <i class="fas fa-mouse-pointer text-muted mr-2"></i> <?= $user['email'];?></a>
                                 <address class="fs-sm fw-400 mt-4 text-muted">
-                                    <i class="fas fa-map-pin mr-2"></i> <?= $_SESSION['user']['adress'];?></address>
+                                    <i class="fas fa-map-pin mr-2"></i> <?= $user['adress'];?></address>
                                 <div class="d-flex flex-row">
-                                    <a href="<?= $_SESSION['user']['vk'];?>" class="mr-2 fs-xxl" style="color:#4680C2">
+                                    <a href="<?= $user['vk'];?>" class="mr-2 fs-xxl" style="color:#4680C2">
                                         <i class="fab fa-vk"></i>
                                     </a>
-                                    <a href="<?= $_SESSION['user']['telegram']; ?>" class="mr-2 fs-xxl" style="color:#38A1F3">
+                                    <a href="<?= $user['telegram']; ?>" class="mr-2 fs-xxl" style="color:#38A1F3">
                                         <i class="fab fa-telegram"></i>
                                     </a>
-                                    <a href="<?= $_SESSION['user']['instagram'];?>" class="mr-2 fs-xxl" style="color:#E1306C">
+                                    <a href="<?= $user['instagram'];?>" class="mr-2 fs-xxl" style="color:#E1306C">
                                         <i class="fab fa-instagram"></i>
                                     </a>
                                 </div>
@@ -208,7 +221,8 @@ require('function.php');
                     </div>
                 </div>
 
-
+        <!----------------------------------------------------------->
+        
                 <div class="col-xl-4">
                     <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="oliver kopyov">
                         <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
